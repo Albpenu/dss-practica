@@ -11,8 +11,8 @@
 <body>
     <div id="onPress" />
     <div id="quiz" />
-    <input type="button" name="enviar" value="Enviar respuesta" onclick="submitclick()"/>
   <script>
+      
       function renderVideo (){
           console.log("");
         }
@@ -20,12 +20,12 @@
         var quiz = new Quiz ({
             questions: ["¿Capital de Francia?","¿Capital de España?", "¿Capital de Islandia?", "¿Capital de Turquía?"],
             answers: [["París","Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Reikiavik", "Moscú"], ["París", "Ankara", "Madrid", "Moscú"]],
-            correctchoice: [0, 2, 2, 1],
-            hits: 2,
-            fails: 2,
-            random: false, //TODO
+            correctChoice: [0, 2, 2, 1],
+            hits: 4,
+            fails: 4,
+            random: true, //TODO
             onFinishHit: function(){console.log("onFinishH!")},
-            onFinishFail: function(){console.log("onFinishF!")},
+            onFinishFail: function(){console.log("onFini8shF!")},
             onHit: function(){
                 /*  TODO
                     add dimensions to "onPress"
@@ -45,6 +45,7 @@
       });
     
       quiz.render();
+      
   </script>
 </body>
 </html>
