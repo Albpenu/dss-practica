@@ -9,14 +9,8 @@
 </head>
 
 <body>
-    <div id="onPress" />
     <div id="quiz" />
   <script>
-      
-      function renderVideo (){
-          console.log("");
-        }
-    
         var quiz = new Quiz ({
             questions: ["¿Capital de Francia?","¿Capital de España?", "¿Capital de Islandia?", "¿Capital de Turquía?"],
             answers: [["París","Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Reikiavik", "Moscú"], ["París", "Ankara", "Madrid", "Moscú"]],
@@ -24,14 +18,16 @@
             hits: 4,
             fails: 4,
             random: true, //TODO
-            onFinishHit: function(){console.log("onFinishH!")},
+            onFinishHit: function(){
+                
+            },
             onFinishFail: function(){console.log("onFini8shF!")},
             onHit: function(){
                 /*  TODO
                     add dimensions to "onPress"
                     create video/image
                 */
-                console.log("Hit!");
+                clear()
                 
             },
             onFail: function(){
@@ -43,8 +39,13 @@
             }
             
       });
-    
+      
       quiz.render();
+      
+      function clear(){
+          quiz.clear()
+      }
+
       
   </script>
 </body>

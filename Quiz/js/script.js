@@ -78,10 +78,11 @@ class Quiz{
     
     randomize() {
         //TODO Sort randomly question, then sorted answers and correctChoice according to question.
-        var mask = createMask(this.props.questions);
+        var mask = createMask(this.props.questions.length);
+        
         sortArray(mask, this.props.questions);
-        sortArray(mask,this.props.answers);
-        sortArray(mask, this.props.correctChoice)
+        sortArray(mask, this.props.answers);
+        sortArray(mask, this.props.correctChoice);
     }
    
     render() {
@@ -90,42 +91,34 @@ class Quiz{
         this.renderCounter();
     }
     
-    clean(){
-        //TODO clean quiz
-        
-    }
-    
-    abort() {
-        console.log(this.props.correctChoice[1]);
+    clear(){
+        console.log("len",this.quiz.children.length)
+        for(var i=0; i<this.quiz.children.length; i++){
+            this.quiz.removeChild(this.quiz.childNodes[i])
+        }     
     }
     
 }
 
 function sortArray(mask, array){ // new positions: [2,3,0,1]
     //TODO 
+    var tmp = array.slice();
     
+    for(var i=0; i<array.length; i++){
+        array[i] = tmp[mask[i]];
+    }
 }
 
-function createMask(array) {
-  var currentIndex = array.length;
-  var temporaryValue;
-  var randomIndex;
-  var mask = []
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
+function createMask(length) {
+    var randomIndex;
+    var positions = Array.from(Array(length).keys())
+    var mask = [];
+    
+    // While there remain elements to shuffle...
+    for(var i=length-1; i>=0; i--){
+        randomIndex = Math.floor(Math.random() * positions.length);
+        mask[i] = positions.splice(randomIndex,1).pop()
+    }
+    
     return mask;
-  // return [2,3,0,1]
-  // return array;
 }
