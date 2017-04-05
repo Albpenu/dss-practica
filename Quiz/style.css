@@ -11,7 +11,6 @@
 
 <body>
     <button onclick="clearGame()">Clean game</button>
-    
     <button onclick="startGame()">Start game</button>
     <div id="quiz">
     </div>
@@ -23,12 +22,6 @@
             hits: 4,
             fails: 4,
             random: true, //TODO
-            questionEnum: true,
-            answerEnum: true,
-            checkbox: "resources/img/circle.png",
-            checked: "resources/img/checked.png",
-            unchecked: "resources/img/unchecked.png",
-            dividerline: true,
             onFinishHit: function(){
                 console.log("OnFinishH!");
             },

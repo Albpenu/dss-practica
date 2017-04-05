@@ -1,11 +1,12 @@
 class Quiz{
     constructor(props){
         this.props = props;
-        
         this.quiz = document.getElementById("quiz");
         this.counterHits = 0;
         this.counterFails = 0;
         this.renderQuestionsAndAnswers = this.renderQuestionsAndAnswers.bind(this);
+        this.questionEnum = ["1. ","2. ","3. ","4. "];
+        this.answerEnum = ["a) ", "b) ", "c) ", "d) "];
     }
 
     //TODO
@@ -16,7 +17,7 @@ class Quiz{
             var question = document.createElement("div");
                 question.id = "question"+i;
                 question.className = "question";
-                question.innerHTML = questions[i];
+                question.innerHTML = this.questionEnum[i]+questions[i];
             
             this.renderAnswers(question,i);
             this.quiz.appendChild(question);
@@ -92,9 +93,8 @@ class Quiz{
     }
     
     clear(){
-        console.log("len",this.quiz.children.length)
-        for(var i=0; i<this.quiz.children.length; i++){
-            this.quiz.removeChild(this.quiz.childNodes[i])
+        for(var i=this.quiz.children.length-1; i>=0; i--){
+            this.quiz.removeChild(this.quiz.children[i]);
         }     
     }
     
