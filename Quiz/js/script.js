@@ -5,8 +5,11 @@ class Quiz{
         this.counterHits = 0;
         this.counterFails = 0;
         this.renderQuestionsAndAnswers = this.renderQuestionsAndAnswers.bind(this);
-        this.questionEnum = ["1. ","2. ","3. ","4. "];
-        this.answerEnum = ["a) ", "b) ", "c) ", "d) "];
+        this.questionEnum = [];
+        for (var i=1; i<=this.props.questions.length; i++){
+            this.questionEnum.push(i);
+        }
+        this.answerEnum = [];
     }
 
     //TODO
@@ -17,7 +20,7 @@ class Quiz{
             var question = document.createElement("div");
                 question.id = "question"+i;
                 question.className = "question";
-                question.innerHTML = this.questionEnum[i]+questions[i];
+                question.innerHTML = "<h1>"+this.questionEnum[i]+". "+questions[i]+"</h1>";
             
             this.renderAnswers(question,i);
             this.quiz.appendChild(question);
@@ -26,10 +29,11 @@ class Quiz{
     
     renderAnswers(question, pos) {
         for(var i=0; i < this.props.answers[pos].length; i++){
+            
             var answer =  document.createElement("div");
                 answer.id = "answer" + pos + i;
                 answer.className = "answer";
-                answer.innerHTML = "<br/><p style='cursor: pointer'>"+this.props.answers[pos][i]+"</p><br/>";
+                answer.innerHTML = "<div class='checkbox'></div>"+"<p>"+abecedario[i]+this.props.answers[pos][i]+"</p><br/>";
                 answer.onclick = this.checkAnswer.bind(this,answer,pos,i);
                 question.appendChild(answer);
         }
@@ -45,6 +49,8 @@ class Quiz{
                 var counterH = ++this.counterHits
                 this.updateCounter()
                 this.props.onHit();
+                
+                answer.innerHTML = "<div class='correct'></div>";
                 if(counterH==this.props.hits){
                     this.props.onFinishHit();
                     this.counterFails = this.props.fails;
@@ -54,6 +60,8 @@ class Quiz{
                 var counterF = ++this.counterFails
                 this.updateCounter()
                 this.props.onFail();
+                
+                answer.innerHTML = "<div class='incorrect'></div>";
                 if (counterF==this.props.fails){
                     this.props.onFinishFail();
                     this.counterHits = this.props.hits;
@@ -122,3 +130,5 @@ function createMask(length) {
     
     return mask;
 }
+
+var abecedario = ["a) ","b) ","c) ","d) ","e) ","f) ","g) ","h) ","i) ","j) ","k) ","l) ","m) ","n) ","o) ","p) ","q) ","r) ","s) ","u) ","v) ","w) ","x) ","y) ","z) "];

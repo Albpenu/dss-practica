@@ -6,13 +6,13 @@
   <title></title>
   <link rel="stylesheet" href="">
     <script type="text/javascript" src="js/script.js"></script>
-    <link src="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
 <body>
     <button onclick="clearGame()">Clean game</button>
     
-    <button onclick="startGame()">Start game</button>
+    <button onclick="startGame()" style="margin-bottom: 20px">Start game</button>
     <div id="quiz">
     </div>
   <script>
@@ -25,9 +25,8 @@
             random: true, //TODO
             questionEnum: true,
             answerEnum: true,
-            checkbox: "resources/img/circle.png",
-            checked: "resources/img/checked.png",
-            unchecked: "resources/img/unchecked.png",
+            checked: "<img src='resources/img/checked.png' style='width: 20px;' />",
+            unchecked: "<img src='resources/img/unchecked.png' style='width: 20px;' />",
             dividerline: true,
             onFinishHit: function(){
                 console.log("OnFinishH!");

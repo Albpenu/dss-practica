@@ -1,0 +1,34 @@
+.answer{
+    display: block;
+}
+
+p {
+    cursor: pointer; 
+    font-size: "25px";
+    margin-top: -20px;
+    margin-left: 25px;
+}
+
+div.checkbox {
+    width: 20px;
+    height: 20px;
+    background-image: url('../resources/img/circle.png');
+    background-size: 20px;
+    margin-right: -10%;
+}
+
+div.correct {
+    width: 20px;
+    height: 20px;
+    background-image: url('../resources/img/checked.png');
+    background-size: 20px;
+    margin-right: -10%;
+}
+
+div.incorrect {
+    width: 20px;
+    height: 20px;
+    background-image: url('../resources/img/unchecked.png');
+    background-size: 20px;
+    margin-right: -10%;
+}
