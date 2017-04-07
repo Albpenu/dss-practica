@@ -49,8 +49,9 @@ class Quiz{
                 var counterH = ++this.counterHits
                 this.updateCounter()
                 this.props.onHit();
-                
-                answer.innerHTML = "<div class='correct'></div>";
+                answer.firstChild.className = "correct";
+                var flecha = document.createElement("div");
+                flecha.id = "flecha";
                 if(counterH==this.props.hits){
                     this.props.onFinishHit();
                     this.counterFails = this.props.fails;
@@ -60,8 +61,7 @@ class Quiz{
                 var counterF = ++this.counterFails
                 this.updateCounter()
                 this.props.onFail();
-                
-                answer.innerHTML = "<div class='incorrect'></div>";
+                answer.firstChild.className = "incorrect";
                 if (counterF==this.props.fails){
                     this.props.onFinishFail();
                     this.counterHits = this.props.hits;

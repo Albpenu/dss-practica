@@ -15,12 +15,14 @@ div.checkbox {
     background-image: url('../resources/img/circle.png');
     background-size: 20px;
     margin-right: -10%;
+    cursor: pointer;
 }
 
 div.correct {
     width: 20px;
     height: 20px;
     background-image: url('../resources/img/checked.png');
+    background-repeat: no-repeat;
     background-size: 20px;
     margin-right: -10%;
 }
@@ -30,5 +32,35 @@ div.incorrect {
     height: 20px;
     background-image: url('../resources/img/unchecked.png');
     background-size: 20px;
+    background-repeat: no-repeat;
+    background-size: 20px;
     margin-right: -10%;
+}
+
+div.question {
+    display: table;
+    margin: 0px auto;
+}
+
+div#question0 {
+        
+}
+
+div#question1 {
+    display: none;
+}
+
+div#question2 {
+    display: none;
+}
+
+div#question3 {
+    display: none;
+}
+
+div#flecha {
+    background-image: url("../resources/img/flecha.png");
+    width: 20px;
+    height: 20px;
+    margin: 0px auto;
 }
