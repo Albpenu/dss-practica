@@ -10,11 +10,13 @@
 </head>
 
 <body>
-    <button onclick="clearGame()">Clean game</button>
-    
-    <button onclick="startGame()" style="margin-bottom: 20px">Start game</button>
+    <div id="header">
+        <button onclick="clearGame()">Clean game</button>
+        <button onclick="startGame()" style="margin-bottom: 20px">Start game</button>
+    </div>
     <div id="quiz">
     </div>
+    <div id="one"></div>
   <script>
         var quiz = new Quiz ({
             questions: ["¿Capital de Francia?","¿Capital de España?", "¿Capital de Islandia?", "¿Capital de Turquía?"],
@@ -45,8 +47,8 @@
                     create video/image
                 */
                 console.log("Fail!");
-            }
-            
+            },
+            backgroundquestion: ["../resources/img/cities/DUBAI.jpg","../resources/img/cities/Kiev.jpg","../resources/img/cities/MADRID.jpg","../resources/img/cities/MIAMI.jpg"]
       });
       
       //quiz.render();
@@ -54,12 +56,14 @@
       
       function clearGame(){
           quiz.clear();
+          document.getElementById("one").style.display = "block";
       }
       
       function startGame(){
           quiz.render();
+          document.getElementById("one").style.display = "none";
       }
-
+      
       
   </script>
 </body>

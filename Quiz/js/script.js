@@ -49,7 +49,7 @@ class Quiz{
                 var counterH = ++this.counterHits
                 this.updateCounter()
                 this.props.onHit();
-                answer.firstChild.className = "correct";
+                answer.firstChild.innerHTML = "<img id='correct' src='resources/img/checked.png' />";
                 var flecha = document.createElement("div");
                 flecha.id = "flecha";
                 if(counterH==this.props.hits){
@@ -61,7 +61,7 @@ class Quiz{
                 var counterF = ++this.counterFails
                 this.updateCounter()
                 this.props.onFail();
-                answer.firstChild.className = "incorrect";
+                answer.firstChild.innerHTML = "<img id='incorrect' src='resources/img/unchecked.png' />";
                 if (counterF==this.props.fails){
                     this.props.onFinishFail();
                     this.counterHits = this.props.hits;
@@ -98,6 +98,7 @@ class Quiz{
         this.props.random ? this.randomize() : null;  //if(this.props.random) this.randomize()
         this.renderQuestionsAndAnswers();
         this.renderCounter();
+        
     }
     
     clear(){
