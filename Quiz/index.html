@@ -10,18 +10,21 @@
 </head>
 
 <body>
-    <div id="header">
-        <button onclick="clearGame()">Clean game</button>
-        <button onclick="startGame()" style="margin-bottom: 20px">Start game</button>
+    <div id="container">
+        <div id="header">
+            <button onclick="clearGame()">Clean game</button>
+            <button onclick="startGame()" style="margin-bottom: 20px">Start game</button>
+        </div>
+        <div id="quiz">
+        </div>
+        <div id="interactive"></div>
     </div>
-    <div id="quiz">
-    </div>
-    <div id="one"></div>
+    
   <script>
         var quiz = new Quiz ({
-            questions: ["¿Capital de Francia?","¿Capital de España?", "¿Capital de Islandia?", "¿Capital de Turquía?"],
-            answers: [["París","Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Madrid", "Moscú"], ["París", "Nápoles", "Reikiavik", "Moscú"], ["París", "Ankara", "Madrid", "Moscú"]],
-            correctChoice: [0, 2, 2, 1],
+            questions: ["What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?"],
+            answers: [["Bombay", "Dubái", "Cartagena de Indias"], ["Kiev", "Moscow", "Rotterdam"], ["Barcelona", "Madrid", "St. Petersburg"], ["Sidney", "Bogotá", "Miami"], ["Oslo", "Minnesota", "Kansas"], ["Prague", "Venice", "Milán"], ["Los Ángeles", "Toronto", "San Francisco"]],
+            correctChoice: [1, 0, 1, 2, 0, 0, 2],
             hits: 4,
             fails: 3,
             random: true, //TODO
@@ -34,13 +37,7 @@
                 console.log("OnFinishH!");
             },
             onFinishFail: function(){console.log("onFini8shF!")},
-            onHit: function(){
-                /*  TODO
-                    add dimensions to "onPress"
-                    create video/image
-                */
-                console.log("Hit!");
-            },
+            onHit: onHit,
             onFail: function(){
                 /* TODO
                     add dimensions to "onPress"
@@ -48,20 +45,24 @@
                 */
                 console.log("Fail!");
             },
-            backgroundquestion: ["../resources/img/cities/DUBAI.jpg","../resources/img/cities/Kiev.jpg","../resources/img/cities/MADRID.jpg","../resources/img/cities/MIAMI.jpg"]
+            backgroundquestion: ["resources/img/cities/DUBAI.jpg","resources/img/cities/Kiev.jpg","resources/img/cities/MADRID.jpg",
+            "resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg", "resources/img/cities/PRAGA.jpg", "resources/img/cities/SAN FRANCISCO.jpg"]
       });
       
-      //quiz.render();
+      quiz.render();
       
-      
-      function clearGame(){
-          quiz.clear();
-          document.getElementById("one").style.display = "block";
-      }
-      
-      function startGame(){
-          quiz.render();
-          document.getElementById("one").style.display = "none";
+      function onHit() {
+        var interactive = document.getElementById("interactive")  
+        
+        var audio = new Audio('resources/audio/click.mp3');
+        audio.play();
+        var img = document.createElement("img");
+        img.src = 'resources/img/clicknext.svg'
+        img.height = 100
+        img.width = 100
+        
+        interactive.appendChild(img)
+          
       }
       
       

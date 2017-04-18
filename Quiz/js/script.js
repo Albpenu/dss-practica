@@ -21,7 +21,10 @@ class Quiz{
                 question.id = "question"+i;
                 question.className = "question";
                 question.innerHTML = "<h1>"+this.questionEnum[i]+". "+questions[i]+"</h1>";
-            
+                question.style.backgroundImage = `url(${this.props.backgroundquestion[i]})`;
+                question.style.backgroundSize = "100% 100%";
+                question.style.height = "100vh";
+                
             this.renderAnswers(question,i);
             this.quiz.appendChild(question);
         }
@@ -91,6 +94,7 @@ class Quiz{
         
         sortArray(mask, this.props.questions);
         sortArray(mask, this.props.answers);
+        sortArray(mask, this.props.backgroundquestion);
         sortArray(mask, this.props.correctChoice);
     }
    
@@ -109,8 +113,8 @@ class Quiz{
     
 }
 
-function sortArray(mask, array){ // new positions: [2,3,0,1]
-    //TODO 
+function sortArray(mask, array){ 
+
     var tmp = array.slice();
     
     for(var i=0; i<array.length; i++){
