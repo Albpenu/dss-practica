@@ -68,13 +68,12 @@ div#flecha {
     margin: 0px auto;
 }
 
-#interactive {
-    display: flex;
+#interactive img{
     position: absolute;
-    z-index: 99;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px; /* -50% del ancho de la imagen */ 
+    margin-top: -50px; /* -50% del alto de la imagen */ 
 }
 
 div#header {

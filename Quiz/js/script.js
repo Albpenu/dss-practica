@@ -4,29 +4,43 @@ class Quiz{
         this.quiz = document.getElementById("quiz");
         this.counterHits = 0;
         this.counterFails = 0;
-        this.renderQuestionsAndAnswers = this.renderQuestionsAndAnswers.bind(this);
         this.questionEnum = [];
         for (var i=1; i<=this.props.questions.length; i++){
             this.questionEnum.push(i);
         }
         this.answerEnum = [];
+        
+        this.renderQuestions = this.renderQuestions.bind(this);
+        this.renderQuestion = this.renderQuestion.bind(this);
     }
 
-    //TODO
-    renderQuestionsAndAnswers(){
+    renderQuestion(index){
+        var questions = document.getElementsByClassName("question")
+        if (this.props.oneByOne && questions.length > 0){
+            for(var i=0; i<questions.length; i++){
+                this.quiz.removeChild(questions[i]);
+            }
+        }
+        var question = this.props.questions[index];
+        
+        var questionDiv = document.createElement("div");
+            questionDiv.id = "question"+index;
+            questionDiv.className = "question";
+            questionDiv.innerHTML = "<h1>"+this.questionEnum[index]+". "+question+"</h1>";
+            questionDiv.style.backgroundImage = `url(${this.props.backgroundQuestion[index]})`;
+            questionDiv.style.backgroundSize = "100% 100%";
+            questionDiv.style.height = "100vh";
+        
+        this.renderAnswers(questionDiv,index);
+        this.quiz.appendChild(questionDiv);
+    }
+    
+    
+    renderQuestions(){
         var questions = this.props.questions;
              
         for(var i=0; i < questions.length; i++){
-            var question = document.createElement("div");
-                question.id = "question"+i;
-                question.className = "question";
-                question.innerHTML = "<h1>"+this.questionEnum[i]+". "+questions[i]+"</h1>";
-                question.style.backgroundImage = `url(${this.props.backgroundquestion[i]})`;
-                question.style.backgroundSize = "100% 100%";
-                question.style.height = "100vh";
-                
-            this.renderAnswers(question,i);
-            this.quiz.appendChild(question);
+            this.renderQuestion(i);
         }
     }
     
@@ -94,15 +108,14 @@ class Quiz{
         
         sortArray(mask, this.props.questions);
         sortArray(mask, this.props.answers);
-        sortArray(mask, this.props.backgroundquestion);
+        sortArray(mask, this.props.backgroundQuestion);
         sortArray(mask, this.props.correctChoice);
     }
    
-    render() {
-        this.props.random ? this.randomize() : null;  //if(this.props.random) this.randomize()
-        this.renderQuestionsAndAnswers();
+    start() {
+        if(this.props.random) this.randomize()
+        if(!this.props.oneByOne) this.renderQuestions()
         this.renderCounter();
-        
     }
     
     clear(){
