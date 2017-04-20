@@ -23,21 +23,39 @@
   <script>
         var quiz = new Quiz ({
             questions: ["What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?"],
+            // Necesario para renderizar las preguntas del cuestionario
             answers: [["Bombay", "Dubái", "Cartagena de Indias"], ["Kiev", "Moscow", "Rotterdam"], ["Barcelona", "Madrid", "St. Petersburg"], ["Sidney", "Bogotá", "Miami"], ["Oslo", "Minnesota", "Kansas"], ["Prague", "Venice", "Milán"], ["Los Ángeles", "Toronto", "San Francisco"]],
+            // Necesario para renderizar las repuestas del cuestionario
             correctChoice: [1, 0, 1, 2, 0, 0, 2],
+            // Necesario para indicar cuál es la respuesta correcta
             hits: 7,
+            // Prescindible. Propiedad para contar el nº (: 'n') de aciertos
             fails: 9999,
+            // Prescindible. Propiedad para contar el nº (: 'n') de fallos
             random: true, 
+            // Prescindible. Ordenación aleatoria de preguntas y sus correspondientes respuestas
             questionEnum: true,//TODO
             answerEnum: true,//TODO
-            checked: "<img src='resource//TODOs/img/checked.png' style='width: 20px;' />",
-            unchecked: "<img src='resources/img/unchecked.png' style='width: 20px;' />",
+            checked: {
+              src: 'resources/img/checked.png',
+              width: 20
+            },
+            // Necesario. Imagen que indica: "respuesta correcta"
+            unchecked: {
+              src: 'resources/img/unchecked.png',
+              width: 20
+            },
+            // Necesario. Imagen que indica: "respuesta incorrecta"
             dividerline: true,
+            // Prescindible. Línea divisoria separando las preguntas
             onFinishHit: function(){
                 console.log("OnFinishH!");
             },
+            // Acción (mensaje) al acertar todas las preguntas 
             onFinishFail: function(){console.log("onFini8shF!")},
+            // Acción (mensaje) al fallar todas las preguntas 
             onHit: onHit,
+            // Necesario. Indica acierto y realiza una acción en consecuencia
             onFail: function(){
                 /* TODO
                     add dimensions to "onPress"
@@ -45,9 +63,12 @@
                 */
                 console.log("Fail!");
             },
-            oneByOne: true,
+            // Necesario. Indica fallo y realiza una acción en consecuencia
+            oneByOne: false,
+            /* Necesario para renderizar las preguntas individualmente (: true) o todas (: false)*/
             backgroundQuestion: ["resources/img/cities/DUBAI.jpg","resources/img/cities/Kiev.jpg","resources/img/cities/MADRID.jpg",
-            "resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg", "resources/img/cities/PRAGA.jpg", "resources/img/cities/SANFRANCISCO.jpg"]
+            "resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg"]
+            // Prescindible. Imágenes de fondo asignadas a cada pregunta
       });
       
       quiz.start()
@@ -56,7 +77,6 @@
       
       function onHit() {
         var interactive = document.getElementById("interactive");  
-        
         var audio = new Audio('resources/audio/click.mp3');
         audio.play();
         var img = document.createElement("img");
@@ -69,7 +89,6 @@
             } 
         }
         interactive.appendChild(img)
-          
       }
       
       

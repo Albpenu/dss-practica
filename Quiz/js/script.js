@@ -2,6 +2,7 @@ class Quiz{
     constructor(props){
         this.props = props;
         this.quiz = document.getElementById("quiz");
+        this.isStarted = false;
         this.counterHits = 0;
         this.counterFails = 0;
         this.questionEnum = [];
@@ -12,27 +13,30 @@ class Quiz{
         
         this.renderQuestions = this.renderQuestions.bind(this);
         this.renderQuestion = this.renderQuestion.bind(this);
+        this.validate = this.validate.bind(this);
     }
 
     renderQuestion(index){
-        var questions = document.getElementsByClassName("question")
-        if (this.props.oneByOne && questions.length > 0){
-            for(var i=0; i<questions.length; i++){
-                this.quiz.removeChild(questions[i]);
+        if(this.isStarted){
+            var questions = document.getElementsByClassName("question")
+            if (this.props.oneByOne && questions.length > 0){
+                for(var i=0; i<questions.length; i++){
+                    this.quiz.removeChild(questions[i]);
+                }
             }
+            var question = this.props.questions[index];
+
+            var questionDiv = document.createElement("div");
+                questionDiv.id = "question"+index;
+                questionDiv.className = "question";
+                questionDiv.innerHTML = "<h1>"+this.questionEnum[index]+". "+question+"</h1>";
+                questionDiv.style.backgroundImage = `url(${this.props.backgroundQuestion[index]})`;
+                questionDiv.style.backgroundSize = "100% 100%";
+                questionDiv.style.height = "100vh";
+
+            this.renderAnswers(questionDiv,index);
+            this.quiz.appendChild(questionDiv);
         }
-        var question = this.props.questions[index];
-        
-        var questionDiv = document.createElement("div");
-            questionDiv.id = "question"+index;
-            questionDiv.className = "question";
-            questionDiv.innerHTML = "<h1>"+this.questionEnum[index]+". "+question+"</h1>";
-            questionDiv.style.backgroundImage = `url(${this.props.backgroundQuestion[index]})`;
-            questionDiv.style.backgroundSize = "100% 100%";
-            questionDiv.style.height = "100vh";
-        
-        this.renderAnswers(questionDiv,index);
-        this.quiz.appendChild(questionDiv);
     }
     
     
@@ -66,7 +70,9 @@ class Quiz{
                 var counterH = ++this.counterHits
                 this.updateCounter()
                 this.props.onHit();
-                answer.firstChild.innerHTML = "<img id='correct' src='resources/img/checked.png' />";
+                var correctimg = document.createElement("img");
+                correctimg.id = "correct";
+                answer.appendChild(correctimg);
                 var flecha = document.createElement("div");
                 flecha.id = "flecha";
                 if(counterH==this.props.hits){
@@ -111,11 +117,22 @@ class Quiz{
         sortArray(mask, this.props.backgroundQuestion);
         sortArray(mask, this.props.correctChoice);
     }
-   
+    
+    
+    
+   validate() {
+       var arraylength = [this.props.questions.length, this.props.answers.length, this.props.correctChoice.length];
+       if(this.props.backgroundQuestion) arraylength.push(this.props.backgroundQuestion.length)
+       return sameLength(arraylength)
+   }
+    
     start() {
-        if(this.props.random) this.randomize()
-        if(!this.props.oneByOne) this.renderQuestions()
-        this.renderCounter();
+        if(this.validate()) {
+            this.isStarted = true
+            if(this.props.random) this.randomize()
+            if(!this.props.oneByOne) this.renderQuestions()
+            this.renderCounter();
+        }
     }
     
     clear(){
@@ -123,6 +140,7 @@ class Quiz{
             this.quiz.removeChild(this.quiz.children[i]);
         }     
     }
+    
     
 }
 
@@ -133,6 +151,20 @@ function sortArray(mask, array){
     for(var i=0; i<array.length; i++){
         array[i] = tmp[mask[i]];
     }
+}
+
+function sameLength(array) {
+    var res = true
+    var length = array[0]
+    for(var i=0;i<array.length;i++){
+        if(length != array[i]){
+            alert("¡No hay el mismo número de preguntas que su conjunto de respuestas! ¡Revíselo!");
+            res = false
+            break;
+        }
+    }
+    
+    return res;
 }
 
 function createMask(length) {
@@ -150,3 +182,4 @@ function createMask(length) {
 }
 
 var abecedario = ["a) ","b) ","c) ","d) ","e) ","f) ","g) ","h) ","i) ","j) ","k) ","l) ","m) ","n) ","o) ","p) ","q) ","r) ","s) ","u) ","v) ","w) ","x) ","y) ","z) "];
+
