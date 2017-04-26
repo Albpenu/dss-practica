@@ -22,21 +22,27 @@
     
   <script>
         var quiz = new Quiz ({
-            questions: ["What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?", "What city can be seen through the window?"],
+            questions: [" What city can be seen through the window?", " What city can be seen through the window?", " What city can be seen through the window?", " What city can be seen through the window?", " What city can be seen through the window?", " What city can be seen through the window?", " What city can be seen through the window?"],
             // Necesario para renderizar las preguntas del cuestionario
             answers: [["Bombay", "Dubái", "Cartagena de Indias"], ["Kiev", "Moscow", "Rotterdam"], ["Barcelona", "Madrid", "St. Petersburg"], ["Sidney", "Bogotá", "Miami"], ["Oslo", "Minnesota", "Kansas"], ["Prague", "Venice", "Milán"], ["Los Ángeles", "Toronto", "San Francisco"]],
             // Necesario para renderizar las repuestas del cuestionario
             correctChoice: [1, 0, 1, 2, 0, 0, 2],
             // Necesario para indicar cuál es la respuesta correcta
-            hits: 7,
+            hits: 3,
             // Prescindible. Propiedad para contar el nº (: 'n') de aciertos
             fails: 9999,
             // Prescindible. Propiedad para contar el nº (: 'n') de fallos
             random: true, 
             // Prescindible. Ordenación aleatoria de preguntas y sus correspondientes respuestas
-            questionEnum: true,//TODO
-            answerEnum: true,//TODO
-            checked: {
+            questionsEnum: {
+              type: "NUMBER",
+              colon: ". "
+            },
+            answerEnum: {
+              type: "ALPHABET",
+              colon: ") "
+            },
+            checked: { 
               src: 'resources/img/checked.png',
               width: 20
             },
@@ -46,7 +52,7 @@
               width: 20
             },
             // Necesario. Imagen que indica: "respuesta incorrecta"
-            dividerline: true,
+            dividerline: true, //TODO
             // Prescindible. Línea divisoria separando las preguntas
             onFinishHit: function(){
                 console.log("OnFinishH!");
@@ -57,17 +63,13 @@
             onHit: onHit,
             // Necesario. Indica acierto y realiza una acción en consecuencia
             onFail: function(){
-                /* TODO
-                    add dimensions to "onPress"
-                    create video/image
-                */
                 console.log("Fail!");
             },
             // Necesario. Indica fallo y realiza una acción en consecuencia
             oneByOne: false,
             /* Necesario para renderizar las preguntas individualmente (: true) o todas (: false)*/
             backgroundQuestion: ["resources/img/cities/DUBAI.jpg","resources/img/cities/Kiev.jpg","resources/img/cities/MADRID.jpg",
-            "resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg"]
+            "resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg","resources/img/cities/MIAMI.jpg", "resources/img/cities/OSLO.jpg"]
             // Prescindible. Imágenes de fondo asignadas a cada pregunta
       });
       
