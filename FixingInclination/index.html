@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="">
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+    <div id="Magnetometer"></div>
+    <div id="CurrentTime"></div>
+    <div id="Together"></div>
+    <video autoplay="true" controls>
+        <source type="video/mp4" src="resources/video/video.mp4" >
+    </video>
+  <script>
+        var detector = new FixingInclination ({
+            video: "resources/video/video.mp4",
+            inclination: [0,26,-8,18,36,-20,12,-36,8,-25,0],
+            errorRange: 4,
+            hits: 4,
+            consecutive: false,
+            loop: false, 
+            onFinish: function(){
+                alert("OnFinish!");
+            }   
+      });
+      
+      var video = document.getElementsByTagName("video")[0].duration;
+      
+      if(video <= 4) this.pause();
+  </script>
+</body>
+</html>
