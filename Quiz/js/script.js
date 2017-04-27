@@ -14,7 +14,7 @@ class Quiz {
     constructor(props){
         const questionLength = props.questions.length
         this.props = props;
-        // default values
+        // Valores asignados||Valores por defecto
         this.props.hits = props.hits || questionLength
         this.props.fails = props.fails || questionLength
         this.quiz = document.getElementById("quiz");
@@ -28,7 +28,7 @@ class Quiz {
         this.renderQuestion = this.renderQuestion.bind(this);
         this.validate = this.validate.bind(this);
     }
-    // Renderizar/mostrar una pregunta
+    // Mostrar una pregunta
     renderQuestion(index){
         if(this.isStarted){
             var questions = document.getElementsByClassName("question")
@@ -51,7 +51,7 @@ class Quiz {
             this.quiz.appendChild(questionDiv);
         }
     }
-    //Renderizar/mostrar el contenido del vector de preguntas Y añade una línea divisoria horizontal separando cada una de la anterior
+    // Contenido del vector de preguntas, y añade una línea divisoria horizontal separando cada una de la anterior
     renderQuestions(){
         var questions = this.props.questions;
              
@@ -64,7 +64,7 @@ class Quiz {
             }
         }
     }
-    //Función para renderizar/mostrar el contenido de los vectores de respuestas
+    // Renderizar/mostrar el contenido de los vectores de respuestas
     renderAnswers(question, pos) {
 
         var answers =  document.createElement("div");
@@ -83,11 +83,11 @@ class Quiz {
 
         question.appendChild(answers)
     }
-    //Función para renderizar/mostrar imágenes que indiquen respuesta correcta o incorrecta
+    // Renderizar/mostrar imágenes que indiquen respuesta correcta o incorrecta
     checkAnswer(answer,questionPos, answerPos) {
         var answerProps = this.props.answers[questionPos][answerPos];
         var answerClicked = this.props.answers[questionPos][this.props.correctChoice[questionPos]];
-        
+        /* Para la respuesta marcada: según sea correcta o incorrecta, se muestran las imágenes correspondientes de "cheched or unchecked", y se actualiza el contador de aciertos y fallos y se muestra a qué corresponde */
         if(answer.className == "answer"){
             answer.className += "-toggled";
             if((answerProps == answerClicked) && this.counterHits<this.props.hits){ //Hit
@@ -100,9 +100,7 @@ class Quiz {
                     correctimg.src = this.props.checked.src;
                     answer.firstChild.appendChild(correctimg);
                 }
-                
-                var flecha = document.createElement("div");
-                flecha.id = "flecha";
+    
                 if(counterH==this.props.hits){
                     this.props.onFinishHit();
                     this.counterFails = this.props.fails;
@@ -126,12 +124,12 @@ class Quiz {
             }
         }
     }
-    //Función que muestra el recuento de aciertos y fallos cometidos
+    // Muestra el recuento de aciertos y fallos cometidos
     updateCounter(){
         var counters = document.getElementById("counters");
         counters.innerHTML = "Aciertos: "+this.counterHits+"<br>"+"Fallos: "+this.counterFails;
     }
-    //Crear divs
+    //Crear divs de contador de aciertos y fallos y que se vaya actualizando
     renderCounter(){
         var counters = document.createElement("div");
             counters.id = "counters";
@@ -143,7 +141,6 @@ class Quiz {
     }
     //Ordenar aleatoriamente las preguntas, luego ordenar respuestas y la respuesta correcta de acuerdo a la pregunta
     randomize() {
-        Sort randomly question, then sorted answers and correctChoice according to question.
         var mask = createMask(this.props.questions.length);
         
         sortArray(mask, this.props.questions);
@@ -151,7 +148,7 @@ class Quiz {
         sortArray(mask, this.props.backgroundQuestion);
         sortArray(mask, this.props.correctChoice);
     }
-   // Función que valida la cantidad de preguntas, respuestas, respuesta correcta
+   // Valida la cantidad de preguntas, respuestas, respuesta correcta
    validate() {
        var arraylength = [this.props.questions.length, this.props.answers.length, this.props.correctChoice.length];
        if(this.props.backgroundQuestion) arraylength.push(this.props.backgroundQuestion.length)
@@ -159,7 +156,7 @@ class Quiz {
        return sameLength(arraylength) && arePositives(this.props.hits, this.props.fails)    
 
    }
-    // Función 
+    // Validar si se quiere habilitar la propiedad aleatoria: mostrar aleatoriamente preguntas, sus respuestas y la respuesta correcta. Y si se quieren mostrar las preguntas de una en una o todas a la vez
     start() {
         if(this.validate()) {
             this.isStarted = true
@@ -170,7 +167,7 @@ class Quiz {
 
 
     }
-    //
+    // Borrar/limpiar el cuestionario
     clear(){
         for(var i=this.quiz.children.length-1; i>=0; i--){
             this.quiz.removeChild(this.quiz.children[i]);
@@ -179,7 +176,7 @@ class Quiz {
     
     
 }
-// 
+// Enumerar y asignar letras a cada vector de preguntas y respuestas
 function createEnum(enumQA, len) {
     var res = []
     switch(enumQA.type){
@@ -197,7 +194,7 @@ function createEnum(enumQA, len) {
     }
     return res
 }
-//
+// Añadir nº y letras (según la posición), y puntuación/símbolo ("." y ")") 
 function consecutiveNumbers(len, colon) {
     const res = []
     for(var i=1; i<=len; i++){
@@ -205,7 +202,7 @@ function consecutiveNumbers(len, colon) {
     }
     return res
 }
-//
+// Ordenación del vector, sustituyendo los valores del array por los de una máscara que le pasamos
 function sortArray(mask, array){ 
 
     var tmp = array.slice();
@@ -214,21 +211,21 @@ function sortArray(mask, array){
         array[i] = tmp[mask[i]];
     }
 }
-//
+// Validación que genera una alerta cuando no hay la misma cantidad de preguntas que sus vectores de respuestas
 function sameLength(array) {
     var res = true
     var length = array[0]
     for(var i=0;i<array.length;i++){
         if(length != array[i]){
             alert("¡No hay el mismo número de preguntas que su conjunto de respuestas! ¡Revíselo!");
-            res = false
+            res = false;
             break;
         }
     }
     
     return res;
 }
-//    
+// Validación que genera una alerta cuando el nº de aciertos y fallos no es "=/>0"
 function arePositives() {
     var positive = true;
 
