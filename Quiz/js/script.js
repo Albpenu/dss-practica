@@ -10,6 +10,7 @@ const ANSWER_ENUM = {
 
 const ALPHABET = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","u","v","w","x","y","z"];
 
+// Recoger las propiedades de la nueva clase creada en la hoja html
 class Quiz {
     constructor(props){
         const questionLength = props.questions.length
