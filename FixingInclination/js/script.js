@@ -3,15 +3,19 @@ class FixingInclination {
   constructor(props) {
     this.props = props;
     this.magnetometer = document.getElementById("Magnetometer");
+    this.fixing = document.getElementById("fixing");
 
     this.hits = 0;
 
+
+    this.renderVideo = this.renderVideo.bind(this);
+    this.detectOrientation = this.detectOrientation.bind(this);
   }
 
 
   start() {
-    renderVideo();           // create a video according to props.video
-    detectOrientation();     // add device orientation listener
+    this.renderVideo();           // create a video according to props.video
+    this.detectOrientation();     // add device orientation listener
 
   }
 
@@ -22,18 +26,15 @@ class FixingInclination {
         video.autoplay  = this.props.video.autoplay;
         video.controls = this.props.video.controls;
         video.loop = this.props.video.loops;
-
-    document.getElementById("fixing").innerHTML = 
-    fixing.appendChild(video);
+    this.fixing.appendChild(video);
   }
 
 
   detectOrientation(){
-    if(window.DeviceOrientationEvent){
+    if(window.DeviceOrientationEvent, function(event){
       window.addEventListener("deviceorientation", orientationChecking.bind(this), false);
-    }
-
-    document.getElementById("magnetometer").innerHTML = this.props.inclination[0];
+      console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
+    });
 }
 
 
