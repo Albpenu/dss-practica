@@ -11,27 +11,62 @@
 
 <body>
     <div id="Magnetometer"></div>
-    <div id="CurrentTime"></div>
-    <div id="Together"></div>
-    <video autoplay="true" controls>
-        <source type="video/mp4" src="resources/video/video.mp4" >
-    </video>
+    <div id="fixing"></div>
   <script>
-        var detector = new FixingInclination ({
-            video: "resources/video/video.mp4",
-            inclination: [0,26,-8,18,36,-20,12,-36,8,-25,0],
-            errorRange: 4,
-            hits: 4,
-            consecutive: false,
-            loop: false, 
-            onFinish: function(){
-                alert("OnFinish!");
-            }   
-      });
+        
+
+    var detector = new FixingInclination ({
+      video: {
+        src: "resources/video/video.mp4",
+        format: "video/mp4",
+        autoplay: true,
+        controls: false,         
+        loop: false, 
+      },
+      inclination: [0,26,-8,18,36,-20,12,-36,8,-25,0], //required
+      errorRange: 5, //valor asignado por defecto
+      hits: 4, //required
+      fails: 4,
+      onHit:  onHit(), 
+      onFail: onFail(), 
+      consecutive: false,
+      onFinish: function() {
+          alert("OnFinish!");
+      }   
+    });
       
-      var video = document.getElementsByTagName("video")[0].duration;
-      
-      if(video <= 4) this.pause();
+      //var video = document.getElementsByTagName("video")[1].duration;
+      //if(video <= 4) this.pause();
+
+     function onHit(){
+
+     }
+
+     function onFail(){
+        
+     }
+
+     // ¿Revisar por qué no funciona? detector.start();
   </script>
 </body>
 </html>
+
+<!--
+
+FixingInclination({
+  video: {
+    src: String,
+    format: String
+  }, required
+  inclination: [numbers], required
+  errorRange: number, default: 5
+  hits: number. required
+  fails: number, 
+  loop: boolean, 
+  onHit: function, 
+  onFail: function, 
+  onFinish: function, required
+})
+
+-->
+

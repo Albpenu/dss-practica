@@ -1,47 +1,50 @@
+
 class FixingInclination {
   constructor(props) {
-    this.props = props
-
+    this.props = props;
     this.magnetometer = document.getElementById("Magnetometer");
-    this.currentTime = document.getElementById("CurrentTime");
-    this.together = document.getElementById("Together");
-
-    var video = $('<video />', {
-        id: 'video',
-        width: '100%',
-        src: props.video,
-        type: 'video/mp4',
-        controls: true,
-        autoplay: true,
-        loop: props.infiniteAttempts
-    });
-
-    video.fadeIn(1000, function(){
-    });
-    video.appendTo($('#FixingInclination'));
-
-    this.video = document.getElementById("video");
-
-    if(window.DeviceOrientationEvent){
-      window.addEventListener("deviceorientation", this.orientationChecking.bind(this), false);
-    }
 
     this.hits = 0;
 
   }
 
+
+  start() {
+    renderVideo();           // create a video according to props.video
+    detectOrientation();     // add device orientation listener
+
+  }
+
+  renderVideo() {
+    var video = document.createElement("video");
+        video.src = this.props.video.src;
+        video.type = this.props.video.format;
+        video.autoplay  = this.props.video.autoplay;
+        video.controls = this.props.video.controls;
+        video.loop = this.props.video.loops;
+
+    document.getElementById("fixing").innerHTML = 
+    fixing.appendChild(video);
+  }
+
+
+  detectOrientation(){
+    if(window.DeviceOrientationEvent){
+      window.addEventListener("deviceorientation", orientationChecking.bind(this), false);
+    }
+
+    document.getElementById("magnetometer").innerHTML = this.props.inclination[0];
+}
+
+
   orientationChecking(event) {
     this.magnetometer.innerHTML = event.gamma;
-    var together = Math.abs(Math.floor(this.props.inclination[Math.floor(this.video.currentTime)] + event.gamma));
-    if(together <= this.props.errorRange){
-      this.together.innerHTML = ++this.hits;
-    }
   }
 
-  getName() {
-    return this.props.video
-  }
+}
 
+
+  
 
 /*var video = document.querySelector('video');
 
